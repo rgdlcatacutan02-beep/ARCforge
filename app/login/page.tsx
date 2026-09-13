@@ -18,6 +18,14 @@ export default function LoginPage() {
     }
   }, [store.user, router]);
 
+  useEffect(() => {
+    if (!store.projectName || store.projectName === 'AquaForge AI') {
+      store.setKey('projectName', 'ARCforge');
+    }
+  }, [store.projectName, store.setKey]);
+
+  const displayName = (!store.projectName || store.projectName === 'AquaForge AI') ? 'ARCforge' : store.projectName;
+
   const handleLogin = async () => {
     setLoading(true);
     try {
@@ -30,7 +38,13 @@ export default function LoginPage() {
     }
   };
 
+  const handleContinueAsAdmin = () => {
+    store.setKey('role', 'admin');
+    router.push("/");
+  };
+
   const handleContinueAsViewer = () => {
+    store.setKey('role', 'viewer');
     router.push("/");
   };
 
@@ -63,7 +77,7 @@ export default function LoginPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
           >
-            {store.projectName || 'AquaForge AI'}
+            {displayName}
           </motion.h1>
           
           <motion.p 
@@ -76,20 +90,28 @@ export default function LoginPage() {
           </motion.p>
           
           <motion.div 
-            className="w-full space-y-4"
+            className="w-full space-y-3"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
           >
             <button
+              onClick={handleContinueAsAdmin}
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-lg px-4 py-3 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+              Enter as Admin (Full Control)
+            </button>
+
+            <button
               onClick={handleLogin}
               disabled={loading}
-              className="w-full flex items-center justify-center gap-3 bg-white text-black font-semibold rounded-lg px-4 py-3 hover:bg-gray-100 transition-colors disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-3 bg-white text-black font-semibold rounded-lg px-4 py-2.5 hover:bg-gray-100 transition-colors disabled:opacity-50 text-sm"
             >
               {loading ? (
-                <div className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin"></div>
+                <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin"></div>
               ) : (
-                <svg viewBox="0 0 24 24" className="w-5 h-5">
+                <svg viewBox="0 0 24 24" className="w-4 h-4">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -111,7 +133,7 @@ export default function LoginPage() {
               {loading ? 'Authenticating...' : 'Sign in with Google'}
             </button>
 
-            <div className="relative">
+            <div className="relative py-1">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-white/10"></div>
               </div>
@@ -122,9 +144,9 @@ export default function LoginPage() {
 
             <button
               onClick={handleContinueAsViewer}
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-lg font-medium hover:bg-white/10 transition-colors"
+              className="w-full px-4 py-2.5 bg-white/5 border border-white/10 text-white/70 hover:text-white rounded-lg text-sm font-medium hover:bg-white/10 transition-colors"
             >
-              Continue as Viewer
+              Continue as Viewer (Read Only)
             </button>
           </motion.div>
         </div>

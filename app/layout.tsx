@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
-  title: 'AquaForge AI - Dashboard',
-  description: 'AI-powered monitoring system for aquaculture',
+  title: 'ARCforge - Aquaculture IoT Platform',
+  description: 'Autonomous AI-powered telemetry and automation system for aquaculture',
 };
 
 export default function RootLayout({

@@ -1,4 +1,4 @@
-# ARCforge (AquaForge AI)
+# ARCforge
 
 <div align="center">
   <h3>Autonomous IoT Aquaculture Telemetry & Automation Platform</h3>

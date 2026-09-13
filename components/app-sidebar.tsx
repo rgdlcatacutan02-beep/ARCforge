@@ -44,7 +44,9 @@ export function AppSidebar({ onClose }: { onClose?: () => void }) {
               </motion.div>
             )}
           </motion.div>
-          <h1 className="text-xl font-bold tracking-tight text-white line-clamp-1">{store.projectName}</h1>
+          <h1 className="text-xl font-bold tracking-tight text-white line-clamp-1">
+            {(!store.projectName || store.projectName === 'AquaForge AI') ? 'ARCforge' : store.projectName}
+          </h1>
         </div>
         {onClose && (
           <button onClick={onClose} className="md:hidden text-white/50 hover:text-white">

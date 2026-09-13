@@ -36,8 +36,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       state.setKey('authInitialized', true);
       if (user) {
         state.setKey('role', 'admin'); 
-      } else {
-        state.setKey('role', 'viewer');
       }
     });
     return () => unsubscribe();
@@ -53,6 +51,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     } catch (error) {
       console.error("Logout failed", error);
     }
+    store.setKey('user', null);
+    store.setKey('role', 'viewer');
+    router.push('/login');
   };
 
   if (pathname === '/login') {
@@ -102,10 +103,19 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </Link>
             )}
             
-            <div className="text-right hidden sm:block cursor-pointer group">
-              <div className="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors uppercase">{store.role === 'admin' ? 'Admin Root' : 'Viewer'}</div>
-              <div className="text-[10px] text-white/40">{store.role === 'admin' ? 'Full Access' : 'Read Only'}</div>
-            </div>
+            <button 
+              onClick={() => store.setKey('role', store.role === 'admin' ? 'viewer' : 'admin')}
+              className="text-right hidden sm:block cursor-pointer group bg-transparent border-0 p-0 text-inherit"
+              title="Click to toggle between Admin and Viewer"
+            >
+              <div className="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors uppercase flex items-center justify-end gap-1.5">
+                <span className={`w-1.5 h-1.5 rounded-full ${store.role === 'admin' ? 'bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]' : 'bg-white/40'}`}></span>
+                {store.role === 'admin' ? 'Admin Root' : 'Viewer'}
+              </div>
+              <div className="text-[10px] text-white/40 group-hover:text-white/70 transition-colors">
+                {store.role === 'admin' ? 'Full Access (Click to switch)' : 'Read Only (Click to switch)'}
+              </div>
+            </button>
             
             <div className="flex items-center gap-2">
               {store.user ? (

@@ -147,7 +147,7 @@ export const useDashboardStore = create<DashboardState>()(
       thermalStatus: false,
       smsActive: true,
       role: 'admin',
-      projectName: 'AquaForge AI',
+      projectName: 'ARCforge',
       projectIcon: '💧',
       projectLogoUrl: '',
       contacts: [
@@ -373,6 +373,20 @@ export const useDashboardStore = create<DashboardState>()(
     }),
     {
       name: 'dashboard-storage',
+      version: 3,
+      migrate: (persistedState: any) => {
+        if (persistedState) {
+          if (persistedState.projectName === 'AquaForge AI' || !persistedState.projectName) {
+            persistedState.projectName = 'ARCforge';
+          }
+        }
+        return persistedState;
+      },
+      onRehydrateStorage: () => (state) => {
+        if (state && (state.projectName === 'AquaForge AI' || !state.projectName)) {
+          state.projectName = 'ARCforge';
+        }
+      },
       partialize: (state) => ({
         projectName: state.projectName,
         projectIcon: state.projectIcon,

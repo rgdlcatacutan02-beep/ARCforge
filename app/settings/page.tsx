@@ -104,7 +104,7 @@ export default function SettingsPage() {
                   value={localName}
                   onChange={(e) => setLocalName(e.target.value)}
                   className="bg-[#0A0A0B] text-white w-full px-4 py-2.5 rounded-lg border border-white/10 font-medium focus:outline-none focus:border-cyan-500 transition-colors" 
-                  placeholder="E.g. AquaForge AI"
+                  placeholder="E.g. ARCforge"
                 />
               </div>
 
@@ -182,7 +182,7 @@ export default function SettingsPage() {
               </motion.div>
               
               <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-1 truncate max-w-[200px]">
-                {localName || 'AquaForge AI'}
+                {localName || 'ARCforge'}
               </h1>
             </div>
           </div>

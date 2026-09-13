@@ -1,4 +1,4 @@
-# AquaForge AI: IoT Aquaculture Architecture
+# ARCforge: IoT Aquaculture Architecture
 
 ## 1. System Architecture
 The system follows a tiered IoT architecture:
