@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // Allow read access to system status for dashboard display
+    match /system_status/{document} {
+      allow read: if true;
+    }
+    
+    match /telemetry/{document} {
+      allow read: if true;
+    }
+    
+    // Allow read access to camera configs for dashboard display
+    match /cameras/{document} {
+      allow read: if true;
+    }
+  }
+}
